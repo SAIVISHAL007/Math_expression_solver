@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html >
+<head>
+<title>Maths Expression Solver</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background: #f0f4f8;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+margin: 0;
+}
+
+.container {
+background: #fff;
+padding: 30px 40px;
+border-radius: 12px;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+width: 300px;
+text-align: center;
+}
+
+h2 {
+margin-bottom: 20px;
+color: #333;
+}
+
+input[type="text"] {
+width: 100%;
+padding: 10px;
+font-size: 16px;
+border: 2px solid #ccc;
+border-radius: 8px;
+margin-bottom: 15px;
+outline: none;
+transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+border-color: #007bff;
+}
+
+button {
+background: #007bff;
+color: white;
+border: none;
+padding: 10px 20px;
+font-size: 16px;
+border-radius: 8px;
+cursor: pointer;
+transition: background 0.3s;
+}
+
+button:hover {
+background: #0056b3;
+}
+
+.result {
+margin-top: 20px;
+font-size: 18px;
+color: #222;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Maths Expression Solver</h2>
+<input type="text" id="expression" placeholder="e.g. (5 + 3) * 2 - 4 / 2" />
+<button onclick="solveExpression()">Calculate</button>
+<div class="result" id="result"></div>
+</div>
+
+<script>
+function solveExpression() {
+const input = document.getElementById('expression').value;
+const resultDiv = document.getElementById('result');
+
+try {
+const sanitized = input.replace(/[^-()\d/*+.%^ ]/g, '');
+const formatted = sanitized.replace(/\^/g, '**');
+const result = new Function(`return (${formatted})`)();
+
+if (isNaN(result)) {
+resultDiv.innerText = "Invalid expression.";
+} else {
+resultDiv.innerText = "Result: " + result;
+}
+} catch (error) {
+resultDiv.innerText = "Error: " + error.message;
+}
+}
+</script>
+<footer>
+  <p>
+    This is a Maths Expression Solver. Made by Chelluri Sai Vishal
+  </p>
+</footer>
+
+</body>
+</html>
